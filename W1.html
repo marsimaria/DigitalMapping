@@ -52,13 +52,12 @@
 	var layer = L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png', {
 	  attribution: 'midnight_cartodb'
 	});
-
+	
 	var map = L.map('map', {
 	  scrollWheelZoom: false,
 	  center: [64.135666, -21.862675],
 	  zoom: 6,
 	  marker: [64.135666, -21.862675],
-	  marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 	});
 
 	// var marker = L.marker([64.135666, -21.862675]).addTo(map);
