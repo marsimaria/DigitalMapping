@@ -52,8 +52,6 @@
 	var layer = L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png', {
 	  attribution: 'midnight_cartodb'
 	});
-	
-	var marker = L.marker([64.135666, -21.862675]).addTo(layer);
 
 	var map = L.map('map', {
 	  scrollWheelZoom: false,
@@ -61,6 +59,8 @@
 	  zoom: 6
 	});
 
+	var marker = L.marker([64.135666, -21.862675]).addTo(map);
+	
 	map.addLayer(layer);
 
 	//cartodb map
