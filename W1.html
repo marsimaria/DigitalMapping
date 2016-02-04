@@ -26,12 +26,12 @@
 	}*/
 
 	#map {
-		height: 50%;
+		height: 100%;
 	}
 
-	#map2 {
-		height: 50%;
-	}
+	/*#map2 {*/
+	/*	height: 50%;*/
+	/*}*/
 
 
 	</style>
@@ -52,6 +52,8 @@
 	var layer = L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png', {
 	  attribution: 'midnight_cartodb'
 	});
+	
+	var marker = L.marker([64.135666, -21.862675]).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup().addTo(map);
 
 	var map = L.map('map', {
 	  scrollWheelZoom: false,
