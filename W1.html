@@ -60,7 +60,9 @@
 	  //marker: [64.135666, -21.862675]
 	});
 
-	var marker = L.marker([64.135666, -21.862675]).addTo(map);
+	var marker = L.marker([64.135666, -21.862675]).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+	
+	marker.addTo(map);
 	
 	map.addLayer(layer);
 
