@@ -61,10 +61,10 @@
 	});
 
 	var marker = L.marker([64.135666, -21.862675]).addTo(map)
-		// .bindPopup("<b>Reykjavik, Iceland</b>")
+		.bindPopup("<b>Reykjavik, Iceland</b>");
 		// .openPopup();
 	
-	map.addLayer(layer).bindPopup("<b>Reykjavik, Iceland</b>").openOn(map);
+	map.addLayer(layer);
 
 	//cartodb map
 	// var layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{basemap-name}/{z}/{x}/{y}.png', {
