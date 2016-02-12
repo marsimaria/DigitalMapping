@@ -5,79 +5,75 @@
 
 <html lang="en">
 <head>
-	<style type="text/css">
-	body { 
-		margin:0;
-		padding: 0;
-		height: 100%;
-	}
-	html{ 
-		position:absolute; 
-		top:0; 
-		bottom:0; 
-		width:100%;
-	}
+    <style type="text/css">
+    body {
+        margin:0;
+        padding: 0;
+        height: 100%;
+    }
+    html{
+        position:absolute;
+        top:0;
+        bottom:0;
+        width:100%;
+    }
 
-/*	html, #map2 { 
-		position:absolute; 
-		top:0; 
-		bottom:0; 
-		width:100%;
-	}*/
-
-	#map {
-		height: 100%;
-	}
-
-	/*#map2 {*/
-	/*	height: 50%;*/
-	/*}*/
+/*    html, #map2 {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width:100%;
+    }*/
 
 
-	</style>
+    #map {
+        height: 50%;
+    }
 
-	<title> Base Layer </title>
+    #map2 {
+        height: 50%;
+    }
 
-	<!-- Leaflet -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+
+    </style>
+
+    <title> Base Layer </title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 </head>
 
 <body>
-	<div id="map"></div>
-	<div id="map2"></div>
-	
-	<script>
-	//leaflet openstreet map
-	var layer = L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png', {
-	  attribution: 'midnight_cartodb'
-	});
-	
-	var map = L.map('map', {
-	  scrollWheelZoom: false,
-	  center: [64.135666, -21.862675],
-	  zoom: 6
-	  //marker: [64.135666, -21.862675]
-	});
+    <div id="map"></div>
+    <div id="map2"></div>
+    
+    <script>
+    //leaflet carto map
+    
+    var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png',{
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+    });
+    var map = L.map('map', {
+    scrollWheelZoom: false,
+    center: [64.135666, -21.862675],
+    zoom: 6
+    });
+    
+    map.addLayer(layer);
+    
+    //cartodb map
+    var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+    });
 
-	var marker = L.marker([64.135666, -21.862675]).addTo(map)
-		.bindPopup("<b>Reykjavik, Iceland</b>")
-		.openPopup();
-	
-	map.addLayer(layer);
+    var map2 = L.map('map2', {
+      scrollWheelZoom: false,
+      center: [64.135666, -21.862675],
+      zoom: 6
+    });
 
-	//cartodb map
-	// var layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{basemap-name}/{z}/{x}/{y}.png', {
-	//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-	// });
-
-	// var map2 = L.map('map2', {
-	//   scrollWheelZoom: false,
-	//   center: [64.135666, -21.862675],
-	//   zoom: 6
-	// });
-
-	// map2.addLayer(layer);
-	</script>
+    map2.addLayer(layer);
+    </script>
 </body>
 </html>
