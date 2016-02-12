@@ -1,0 +1,144 @@
+<!-- Leaflet documentation for geoJSON: http://leafletjs.com/examples/geojson.html -->
+
+<!DOCTYPE html>
+<head>
+  <style>
+    body {
+      padding:0;
+      margin:0;
+      height: 100%;
+    }
+    html, #map{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    } 
+  </style>
+
+  <title> Map with Leaflet Markers and Pop-ups</title>
+  <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+  <script src ="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>  
+
+  <!-- Jquery so that we can pull in external JSON files  -->
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="js/L.LineUtil.PolylineDecorator.js"></script>
+  <script src="js/L.PolylineDecorator.js"></script>
+  <script src="js/L.RotatedMarker.js"></script>
+  <script src="js/L.Symbol.js"></script>
+
+  <script src="js/Leaflet.MakiMarkers.js"></script> 
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script>
+  // CartoDB Map
+  var layer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+  });
+  var map = L.map('map').setView([28.2018667,112.8381246], 5);
+  map.addLayer(layer);
+
+  geojsonStyle = {
+    "color": "#fffff"
+  };
+
+  // SYNTAX FOR EXTERNAL GEOJSON
+  var coords = [];
+  var chengdu;
+  var xichang;
+  var taipei;
+  var geojsonData = $.getJSON("data/twgov.json", function(data){
+    // console.log(data);
+    for (var i = 0; i < data.features.length; i++) {
+      if (i < 4) {
+        var lat = data.features[i].geometry.coordinates[1]
+        var lng = data.features[i].geometry.coordinates[0]
+        var temppoint = new L.LatLng(lat, lng)
+        coords.push(temppoint);
+      }
+    }
+
+    chengdu = new L.LatLng(data.features[3].geometry.coordinates[1], data.features[3].geometry.coordinates[0])
+    xichang = new L.LatLng(data.features[4].geometry.coordinates[1], data.features[4].geometry.coordinates[0])
+    taipei = new L.LatLng(data.features[5].geometry.coordinates[1], data.features[5].geometry.coordinates[0])
+
+    var polyline_cx = new L.Polyline([chengdu,xichang], {
+    color: 'red',
+    weight: 3,
+    opacity: 0.5,
+    smoothFactor: 1
+    }).addTo(map);
+
+    var polyline_ct = new L.Polyline([chengdu,taipei], {
+    color: 'red',
+    weight: 3,
+    opacity: 0.5,
+    smoothFactor: 1
+    }).addTo(map);
+
+    console.log(coords);
+
+    var polyline = new L.Polyline(coords, {
+    color: 'green',
+    weight: 3,
+    opacity: 0.5,
+    smoothFactor: 1
+    }).addTo(map);
+
+    var arrowOffset = 100;
+    var decorator_cx = L.polylineDecorator(polyline_cx, {
+    patterns: [
+        // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+        // {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
+        {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, color: 'red'}})}
+    ]
+    }).addTo(map);
+
+    var decorator_ct = L.polylineDecorator(polyline_ct, {
+    patterns: [
+        // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+        // {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
+        {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, color: 'red'}})}
+    ]
+    }).addTo(map);
+
+    var decorator = L.polylineDecorator(polyline, {
+    patterns: [
+        // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+        // {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
+      {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, color: 'green'}})}
+    ]
+    }).addTo(map);
+
+    // L.geoJson(data, {
+    //   style: geojsonStyle
+    // }).addTo(map);
+
+    var start_icon = L.MakiMarkers.icon({icon: "star", color: "#FFFF00", size: "l"})
+    
+    var marker_start = new L.marker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], {icon: start_icon}).addTo(map)
+    marker_start.bindPopup('Starting Point');
+
+    var marker;
+    for (var i = 0; i < data.features.length; i++) {
+      if (i > 0) {
+        marker = new L.marker([data.features[i].geometry.coordinates[1], data.features[i].geometry.coordinates[0]]).addTo(map)
+      } 
+    }
+
+
+
+});
+
+  
+   
+
+   // var arrows = L.polylineDecorator(geojsonData, options).addTo(map);
+
+
+ </script>
+</body>
+</html>
