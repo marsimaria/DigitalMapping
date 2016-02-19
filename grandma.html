@@ -142,7 +142,7 @@
     var start_icon = L.MakiMarkers.icon({icon: "star", color: "#FFFF00", size: "l"})
     
     var marker_start = new L.marker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], {icon: start_icon, size: "s"}).addTo(map)
-    marker_start.bindPopup('Starting Point');
+    marker_start.bindPopup('Born in Fancheng, Hubei, China');
 
     var marker;
     for (var i = 0; i < data.features.length; i++) {
